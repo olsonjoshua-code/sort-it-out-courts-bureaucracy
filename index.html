@@ -1,70 +1,143 @@
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sort It Out: Courts & Bureaucracy (AP Gov 2.8–2.15)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 0; }
+    header { background: #003366; color: white; padding: 16px; text-align: center; }
+    h1 { margin: 0; }
+    .wrapper { max-width: 1100px; margin: auto; padding: 20px; }
+    .zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-top: 10px; }
+    .zone { min-height: 200px; border: 2px dashed #ccc; border-radius: 8px; padding: 10px; background: white; }
+    .zone h2 { margin-top: 0; text-align: center; }
+    .card { border: 1px solid #ccc; border-radius: 8px; padding: 8px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 4px; cursor: grab; }
+    .card.dragging { opacity: 0.5; }
+    .btn-bar { text-align: center; margin: 20px 0; }
+    button { background: #003366; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    button:hover { background: #0055aa; }
+    .score { text-align: center; font-weight: bold; margin-top: 10px; }
+    .correct { outline: 3px solid #009933; }
+    .incorrect { outline: 3px solid #cc0000; }
+    .challenge { background: #fff8e1; border-left: 5px solid #ffb300; padding: 10px; margin-top: 20px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sort It Out: Courts &amp; Bureaucracy</h1>
+    <p>AP Gov CED 2.8–2.15 Review Game</p>
+  </header>
 
-export default function SortItOutGame() {
-  const categories = [
-    { id: "judicial", title: "Judicial Branch", color: "bg-blue-100" },
-    { id: "bureaucracy", title: "Bureaucracy / Executive", color: "bg-green-100" },
-    { id: "legislative", title: "Legislative Oversight", color: "bg-red-100" },
-  ];
-
-  const terms = [
-    { id: 1, term: "Judicial Review", def: "Power of the courts to declare laws or actions unconstitutional.", branch: "judicial" },
-    { id: 2, term: "Precedent", def: "A previous ruling used as a guide for future cases.", branch: "judicial" },
-    { id: 3, term: "Stare Decisis", def: "Let the decision stand; the principle of following precedent.", branch: "judicial" },
-    { id: 4, term: "Writ of Certiorari", def: "Order for a lower court to send up a case for review.", branch: "judicial" },
-    { id: 5, term: "Judicial Activism", def: "Philosophy where judges make bold policy decisions.", branch: "judicial" },
-    { id: 6, term: "Judicial Restraint", def: "Philosophy encouraging judges to defer to elected branches.", branch: "judicial" },
-    { id: 7, term: "Majority Opinion", def: "The official ruling of the Supreme Court.", branch: "judicial" },
-    { id: 8, term: "Dissenting Opinion", def: "Written by justices who disagree with the majority.", branch: "judicial" },
-    { id: 9, term: "Amicus Curiae Brief", def: "'Friend of the court' brief submitted by interested parties.", branch: "judicial" },
-    { id: 10, term: "Bureaucracy", def: "Complex organization of appointed officials that implements policy.", branch: "bureaucracy" },
-    { id: 11, term: "Civil Service / Merit System", def: "Hiring based on qualifications, not patronage.", branch: "bureaucracy" },
-    { id: 12, term: "Iron Triangle", def: "Alliance between agencies, interest groups, and congressional committees.", branch: "bureaucracy" },
-    { id: 13, term: "Issue Network", def: "Looser coalition influencing policy in a specific area.", branch: "bureaucracy" },
-    { id: 14, term: "Regulation", def: "A rule created by an agency to enforce a law.", branch: "bureaucracy" },
-    { id: 15, term: "Rulemaking", def: "The process of creating regulations.", branch: "bureaucracy" },
-    { id: 16, term: "Implementation", def: "Process of putting laws into action.", branch: "bureaucracy" },
-    { id: 17, term: "Discretionary Authority", def: "Agency power to interpret and apply laws.", branch: "bureaucracy" },
-    { id: 18, term: "Executive Orders", def: "Presidential directives to agencies.", branch: "bureaucracy" },
-    { id: 19, term: "Congressional Oversight", def: "Congress monitors how laws are implemented.", branch: "legislative" },
-    { id: 20, term: "Power of the Purse", def: "Congress controls funding for agencies.", branch: "legislative" },
-    { id: 21, term: "Committee Hearings", def: "Sessions where Congress questions agency actions.", branch: "legislative" },
-    { id: 22, term: "Legislative Checks on Judiciary", def: "Congress can alter court jurisdiction or pass new laws.", branch: "legislative" },
-  ];
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-center">Sort It Out: Courts & Bureaucracy Edition</h1>
-      <p className="text-center text-gray-600">Drag each term and definition into the correct branch category. Then, complete the Challenge Round!</p>
-      <div className="grid grid-cols-3 gap-4">
-        {categories.map((cat) => (
-          <Card key={cat.id} className={`${cat.color} p-3`}> 
-            <h2 className="font-semibold text-center mb-2">{cat.title}</h2>
-            <CardContent className="min-h-[300px] border-dashed border-2 border-gray-300 rounded-lg"></CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        {terms.map((t) => (
-          <motion.div key={t.id} whileHover={{ scale: 1.03 }} className="p-2 bg-white rounded-lg shadow border cursor-move">
-            <p className="font-semibold">{t.term}</p>
-            <p className="text-sm text-gray-600">{t.def}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="mt-8 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
-        <h3 className="font-semibold text-lg mb-2">⚔️ Challenge Round</h3>
-        <ul className="list-disc list-inside space-y-1 text-gray-700">
-          <li>A president issues an executive order limiting emissions—who enforces it and who can check it?</li>
-          <li>The Supreme Court overturns a prior decision—what principle did they abandon?</li>
-          <li>Congress reduces funding to the EPA after a controversial rule—what oversight power is that?</li>
-          <li>Citizens United v. FEC expands political speech rights—what concept does this demonstrate?</li>
-        </ul>
-      </div>
+  <div class="wrapper">
+    <p>Drag each <b>term</b> and <b>definition</b> into the correct branch zone. Then click <b>Check Answers</b>.</p>
+    <div class="btn-bar">
+      <button onclick="reset()">Reset</button>
+      <button onclick="checkAnswers()">Check Answers</button>
+      <span id="score" class="score"></span>
     </div>
-  );
-}
+
+    <div class="zones">
+      <div class="zone" id="judicial" data-branch="judicial"><h2>Judicial Branch</h2></div>
+      <div class="zone" id="bureaucracy" data-branch="bureaucracy"><h2>Bureaucracy / Executive</h2></div>
+      <div class="zone" id="legislative" data-branch="legislative"><h2>Legislative Oversight</h2></div>
+    </div>
+
+    <div id="pool"></div>
+
+    <div class="challenge">
+      <h3>⚖️ Challenge Round</h3>
+      <ul>
+        <li>A president issues an executive order limiting emissions—who enforces it and who can check it?</li>
+        <li>The Supreme Court overturns a prior decision—what principle did they abandon?</li>
+        <li>Congress reduces funding to the EPA after a controversial rule—what oversight power is that?</li>
+        <li>Citizens United v. FEC expands political speech rights—what concept does this demonstrate?</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      {term:'Judicial Review', def:'Power of the courts to declare laws or actions unconstitutional.', branch:'judicial'},
+      {term:'Stare Decisis', def:'“Let the decision stand”—courts follow precedent.', branch:'judicial'},
+      {term:'Precedent', def:'A prior decision that guides future rulings.', branch:'judicial'},
+      {term:'Writ of Certiorari', def:'Order for a lower court to send up a case for review.', branch:'judicial'},
+      {term:'Judicial Activism', def:'Philosophy of bold judicial policy decisions.', branch:'judicial'},
+      {term:'Judicial Restraint', def:'Philosophy of deferring to elected branches.', branch:'judicial'},
+      {term:'Dissenting Opinion', def:'Written by justices who disagree with the majority.', branch:'judicial'},
+      {term:'Bureaucracy', def:'Complex organization implementing public policy.', branch:'bureaucracy'},
+      {term:'Civil Service / Merit System', def:'Hiring based on qualifications rather than patronage.', branch:'bureaucracy'},
+      {term:'Iron Triangle', def:'Alliance among agencies, interest groups, and congressional committees.', branch:'bureaucracy'},
+      {term:'Issue Network', def:'Looser coalition influencing policy areas.', branch:'bureaucracy'},
+      {term:'Discretionary Authority', def:'Agency ability to interpret and apply laws.', branch:'bureaucracy'},
+      {term:'Implementation', def:'Process of putting laws into effect.', branch:'bureaucracy'},
+      {term:'Regulation', def:'Rule issued by an agency to enforce law.', branch:'bureaucracy'},
+      {term:'Congressional Oversight', def:'Congress monitoring executive agencies.', branch:'legislative'},
+      {term:'Power of the Purse', def:'Congress controls funding for agencies.', branch:'legislative'},
+      {term:'Committee Hearings', def:'Sessions where Congress questions agency actions.', branch:'legislative'},
+      {term:'Legislative Checks on Judiciary', def:'Congress can alter jurisdiction or pass new laws.', branch:'legislative'}
+    ];
+
+    const pool = document.getElementById('pool');
+    const zones = document.querySelectorAll('.zone');
+    const scoreEl = document.getElementById('score');
+
+    function createCard(item, type){
+      const c = document.createElement('div');
+      c.className = 'card';
+      c.draggable = true;
+      c.dataset.branch = item.branch;
+      c.dataset.type = type;
+      c.textContent = type==='term' ? item.term : item.def;
+      c.addEventListener('dragstart', dragStart);
+      c.addEventListener('dragend', dragEnd);
+      return c;
+    }
+
+    function reset(){
+      pool.innerHTML='';
+      items.forEach(i=>{
+        pool.appendChild(createCard(i,'term'));
+        pool.appendChild(createCard(i,'def'));
+      });
+      scoreEl.textContent='';
+      document.querySelectorAll('.card').forEach(c=>c.classList.remove('correct','incorrect'));
+    }
+
+    function dragStart(e){ e.target.classList.add('dragging'); }
+    function dragEnd(e){ e.target.classList.remove('dragging'); }
+
+    zones.forEach(z=>{
+      z.addEventListener('dragover', e=>{ e.preventDefault(); });
+      z.addEventListener('drop', e=>{
+        const c=document.querySelector('.dragging'); 
+        if(c) z.appendChild(c);
+      });
+    });
+    pool.addEventListener('dragover', e=>{ e.preventDefault(); });
+    pool.addEventListener('drop', e=>{
+      const c=document.querySelector('.dragging'); 
+      if(c) pool.appendChild(c);
+    });
+
+    function checkAnswers(){
+      let score=0; const total = items.length*2;
+      document.querySelectorAll('.card').forEach(c=>c.classList.remove('correct','incorrect'));
+      items.forEach(i=>{
+        const termEl = [...document.querySelectorAll('.card')].find(c=>c.textContent===i.term);
+        const defEl = [...document.querySelectorAll('.card')].find(c=>c.textContent===i.def);
+        const termZone = termEl.parentElement.closest('.zone');
+        const defZone = defEl.parentElement.closest('.zone');
+        let pairOK=false, branchOK=false;
+        if(termZone && defZone && termZone===defZone){pairOK=true;score++;}
+        if(termZone && termZone.dataset.branch===i.branch && defZone && defZone.dataset.branch===i.branch){branchOK=true;score++;}
+        if(pairOK&&branchOK){termEl.classList.add('correct');defEl.classList.add('correct');}
+        else{termEl.classList.add('incorrect');defEl.classList.add('incorrect');}
+      });
+      scoreEl.textContent=`Score: ${score}/${total}`;
+    }
+
+    reset();
+  </script>
+</body>
+</html>
